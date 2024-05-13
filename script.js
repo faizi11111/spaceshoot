@@ -7,13 +7,15 @@ let ravens = [];
 let timeToNextRaven = 0;
 let ravenInterval = 500;
 let lastTime = 0;
+let score = 0;
 
 const planes = ["ac1.png", "ac2.png", "ac3.png", "ac4.png", "ac5.png"];
 
 class Raven {
   constructor() {
-    this.spriteHeight = 250;
-    this.spriteWidth = 250;
+    this.spriteHeight = 200;
+
+    this.spriteWidth = 200;
     this.sizeModifier = Math.random() * 0.6 + 0.4;
     this.width = this.spriteWidth * this.sizeModifier;
     this.height = this.spriteHeight * this.sizeModifier;
@@ -42,6 +44,14 @@ class Raven {
   }
 }
 
+function drawScore() {
+  ctx.fillStyle = "pink";
+  ctx.font = `40px Verdana`;
+  ctx.fillText("Score: " + score, 50, 75);
+  ctx.fillStyle = "red";
+  ctx.fillText("Score: " + score, 52, 77);
+}
+
 const raven = new Raven();
 
 function animate(timestamp) {
@@ -53,6 +63,7 @@ function animate(timestamp) {
     ravens.push(new Raven());
     timeToNextRaven = 0;
   }
+  drawScore();
   [...ravens].forEach((raven) => raven.update());
   [...ravens].forEach((raven) => raven.draw());
   ravens = ravens.filter((raven) => !raven.markedForDelete);
